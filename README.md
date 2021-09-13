@@ -1,24 +1,69 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# DB 設計
 
-Things you may want to cover:
+## users table
 
-* Ruby version
+| Column             | Type                | Options                 |
+|--------------------|---------------------|-------------------------|
+| nickname           | string              | null: false             |
+| email              | string              | null: false             |
+| encrypted_password | string              | null: false             |
+| first_name         | string              | null: false             |
+| last_name          | string              | null: false             |
+| first_name_kana    | string              | null: false             |
+| last_name_kana     | string              | null: false             |
+| birthday           | string              | null: false             |
 
-* System dependencies
+### Association
 
-* Configuration
+* has_many :items
 
-* Database creation
+## items table
 
-* Database initialization
+| Column                              | Type       | Options           |
+|-------------------------------------|------------|-------------------|
+| title                               | string     | null: false       |
+| text                                | text       | null: false       |
+| category                            | string     | null: false      |
+| status                              | string     | null: false       |
+| price                               | integer    | null: false      |
+| postage                             | integer    | null: false      |
+| place                               | string     | null: false       |
+| date                                | string     | null: false       |
+| user                                | references | foreign_key: true |
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to :user
+- has_many :buys
 
-* Deployment instructions
+## buys table
 
-* ...
+| Column      | Type       | Options           |
+|-------------|------------|-------------------|
+| card        | text       | null: false       |
+| expiration  | text       | null: false       |
+| security    | text       | null: false       |
+
+
+### Association
+
+- belongs_to :items
+- has_one :address
+
+# address table
+
+| Column         | Type        | Options           |
+|----------------|-------------|-------------------|
+| postcode       | string      | null: false       |
+| prefecture_id  | string      | null: false       |
+| city           | string      | null: false       |
+| block          | string      | null: false       |
+| building       | string      | null: false       |
+| phone          | string      | null: false       |
+
+
+
+### Association
+
+- belongs_to :items
