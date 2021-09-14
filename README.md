@@ -5,8 +5,8 @@
 
 | Column             | Type                | Options                  |
 |--------------------|---------------------|------------------------- |
-| nickname           | string              | null: false,unique: true |
-| email              | string              | null: false              |
+| nickname           | string              | null: false              |
+| email              | string              | null: false,unique: true |
 | encrypted_password | string              | null: false              |
 | first_name         | string              | null: false              |
 | last_name          | string              | null: false              |
@@ -29,7 +29,7 @@
 | status_id                       | integer    | null: false       |
 | price_id                        | integer    | null: false       |
 | postage_id                      | integer    | null: false       |
-| place_id                        | integer    | null: false       |
+| place                        | integer    | null: false       |
 | day_id                          | integer    | null: false       |
 | user                            | references | foreign_key: true |
 
@@ -43,7 +43,7 @@
 | Column      | Type       | Options           |
 |-------------|------------|-------------------|
 | user        | references | foreign_key: true | 
-| items       | references | foreign_key: true | 
+| item       | references | foreign_key: true | 
 
 ### Association
 
@@ -62,9 +62,10 @@
 | block          | string      | null: false       |
 | building       | string      |        |
 | phone          | string      | null: false       |
-| user           | references  | foreign_key: true |
+| buy            | references  | foreign_key: true |
+
 
 
 ### Association
-- belongs_to :item
-- belongs_to :buys
+- belongs_to :buy
+
