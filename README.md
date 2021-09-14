@@ -25,17 +25,18 @@
 |---------------------------------|------------|-------------------|
 | title                           | string     | null: false       |
 | text                            | text       | null: false       |
-| category_id                     | integer     | null: false      |
+| category_id                     | integer    | null: false      |
 | status_id                       | integer    | null: false       |
-| price_id                        | integer    | null: false       |
+| price                           | integer    | null: false       |
 | postage_id                      | integer    | null: false       |
-| place                        | integer    | null: false       |
+| place_id                        | integer    | null: false       |
 | day_id                          | integer    | null: false       |
 | user                            | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :user
+- has_many :buys
 
 
 ## buys table
@@ -43,7 +44,7 @@
 | Column      | Type       | Options           |
 |-------------|------------|-------------------|
 | user        | references | foreign_key: true | 
-| item       | references | foreign_key: true | 
+| item        | references | foreign_key: true | 
 
 ### Association
 
