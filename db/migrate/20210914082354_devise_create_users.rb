@@ -16,7 +16,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :last_name,          null: false
       t.string :first_name_kana,    null: false
       t.string :last_name_kana,     null: false
-      t.datetime :birthday,         null: false
+      t.date   :birthday,           null: false
 
       ## Rememberable
       t.datetime :remember_created_at
