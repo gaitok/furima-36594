@@ -27,7 +27,8 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
     it 'お名前(全角)苗字が空だと入力できない' do
-      user = User.new(nickname: "a", email: "aaa@aaa", password: "aaaaa0", password_confirmation: "aaaaa0", first_name:"",last_name:"あ",first_name_kana:"ア",last_name_kana:"ア",birthday:"1931-01-01 00:00:00")
+      user = User.new(nickname: 'a', email: 'aaa@aaa', password: 'aaaaa0', password_confirmation: 'aaaaa0', first_name: '',
+                      last_name: 'あ', first_name_kana: 'ア', last_name_kana: 'ア', birthday: '1931-01-01 00:00:00')
       user.valid?
       expect(user.errors.full_messages).to include("First name can't be blank")
     end
