@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-
+  before_action :authenticate_user!, except: [:index]
 
   def index
     @items = Item.all
@@ -10,8 +10,8 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @items = Item.new(prototype_params)
-    if @Item.save
+    @items = Item.new(items_params)
+    if @items.save
       redirect_to root_path
     else
       render :new
@@ -25,6 +25,11 @@ class ItemsController < ApplicationController
   end
 
   def update
+    if current_user.update(user_params)
+      redirect_to root_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -33,7 +38,7 @@ class ItemsController < ApplicationController
   private
 
   def items_params
-    params.require(:items).permit(:title, :text, :category_id, :status_id,:price,:postage_id,:place_id,:day_id).merge(user_id: current_user.id)
+    params.permit(:title, :text, :category_id, :status_id,:price,:postage_id,:place_id,:day_id,:image).merge(user_id: current_user.id)
   end
 
 end
