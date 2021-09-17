@@ -2,7 +2,6 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :status
@@ -11,15 +10,15 @@ class Item < ApplicationRecord
   belongs_to :day
 
   with_options presence: true do
-  validates :title
-  validates :text 
-  validates :price,numericality: { in: 300..9999999 }
-  with_options numericality: { other_than: 1 } do
-  validates :category_id 
-  validates :status_id 
-  validates :postage_id 
-  validates :place_id
-  validates :day_id
+    validates :title
+    validates :text
+    validates :price, numericality: { in: 300..9_999_999 }
+    with_options numericality: { other_than: 1, message: "can't be blank" } do
+      validates :category_id
+      validates :status_id
+      validates :postage_id
+      validates :place_id
+      validates :day_id
+    end
   end
-end
 end
