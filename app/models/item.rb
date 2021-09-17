@@ -14,7 +14,7 @@ class Item < ApplicationRecord
   validates :title
   validates :text 
   validates :price,numericality: { in: 300..9999999 }
-  with_options numericality: { other_than: 1 , message: "can't be blank"} do
+  with_options numericality: { other_than: 1 } do
   validates :category_id 
   validates :status_id 
   validates :postage_id 
