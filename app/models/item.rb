@@ -12,7 +12,8 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :title
     validates :text
-    validates :price, numericality: { in: 300..9_999_999 }
+    validates :image
+    validates :price, numericality: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ }
     with_options numericality: { other_than: 1, message: "can't be blank" } do
       validates :category_id
       validates :status_id
