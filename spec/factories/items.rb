@@ -8,11 +8,10 @@ FactoryBot.define do
     postage_id          { 2 }
     place_id            { 3 }
     day_id              { 2 }
-    association :user 
+    association :user
 
     after(:build) do |image|
       image.image.attach(io: File.open('public/images/image.png'), filename: 'image.png')
     end
-
   end
 end
