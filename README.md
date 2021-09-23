@@ -53,7 +53,7 @@
 * has_one :address
 
 
-# address table
+# order table
 
 | Column         | Type        | Options           |
 |----------------|-------------|-------------------|
