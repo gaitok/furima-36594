@@ -40,7 +40,7 @@ RSpec.describe BuyAddress, type: :model do
       end
 
       it '都道府県に「---」が選択されている場合は出品できない' do
-        @order.place_id = '1'
+        @order.place_id = １
         @order.valid?
         expect(@order.errors.full_messages).to include("Place can't be blank")
       end

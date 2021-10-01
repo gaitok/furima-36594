@@ -1,13 +1,9 @@
 class BuysController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, only: [:index,:create]
   before_action :having_items, only: [:index, :create]
   before_action :specified_user, only: [:index, :create]
 
   def index
-    @buy_address = BuyAddress.new
-  end
-
-  def new
     @buy_address = BuyAddress.new
   end
 
@@ -42,14 +38,10 @@ class BuysController < ApplicationController
   end
 
   def specified_user
-    if user_signed_in?
-      if @items.user.id == current_user.id
+      if  Buy.find_by(item_id: @items.id) != nil
         redirect_to root_path
-      elsif Buy.find_by(item_id: @items.id) != nil
+      elsif @items.user.id == current_user.id
         redirect_to root_path
       end
-    else
-      redirect_to new_user_session_path
-    end
   end
 end

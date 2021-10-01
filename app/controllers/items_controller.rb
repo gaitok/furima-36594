@@ -7,6 +7,9 @@ class ItemsController < ApplicationController
     @items = Item.order('created_at')
   end
 
+  def new
+    @items = Item.new
+  end
 
   def create
     @items = Item.new(items_params)
