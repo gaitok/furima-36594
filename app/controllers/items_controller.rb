@@ -7,9 +7,6 @@ class ItemsController < ApplicationController
     @items = Item.order('created_at')
   end
 
-  def new
-    @items = Item.new
-  end
 
   def create
     @items = Item.new(items_params)
@@ -52,6 +49,10 @@ class ItemsController < ApplicationController
   end
 
   def specified_user
-    redirect_to root_path unless @items.user.id == current_user.id
+    if Buy.find_by(item_id: @items.id) != nil
+      redirect_to root_path
+    elsif @items.user.id != current_user.id
+      redirect_to root_path
+    end
   end
 end
