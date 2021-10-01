@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe BuyAddress, type: :model do
   before do
     @order = FactoryBot.build(:buy_address)
-    @buy = FactoryBot.build(:buy)
   end
 
   describe '商品購入機能のテストコード' do
