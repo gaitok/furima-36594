@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe BuyAddress, type: :model do
   before do
-    @order = FactoryBot.build(:buy_address)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @order = FactoryBot.build(:buy_address, user_id: user.id, item_id: item.id)
+    sleep 0.1
   end
 
   describe '商品購入機能のテストコード' do
@@ -10,10 +13,14 @@ RSpec.describe BuyAddress, type: :model do
       it '全て値が入っている時' do
         expect(@order).to be_valid
       end
+
+      it '建物名が空でも購入できる' do
+        @order.building = ''
+        @order.valid?
+      end
     end
 
     context '商品登録ができない時' do
-
       it 'トークンが空だと入力できない' do
         @order.token = ''
         @order.valid?
@@ -33,7 +40,7 @@ RSpec.describe BuyAddress, type: :model do
       end
 
       it '都道府県に「---」が選択されている場合は出品できない' do
-        @order.place_id = ''
+        @order.place_id = '1'
         @order.valid?
         expect(@order.errors.full_messages).to include("Place can't be blank")
       end
@@ -50,11 +57,6 @@ RSpec.describe BuyAddress, type: :model do
         expect(@order.errors.full_messages).to include("Block can't be blank")
       end
 
-      it '建物名は任意である' do
-        @order.building = ''
-        @order.valid?
-      end
-
       it '電話番号が空だと入力できない' do
         @order.phone = ''
         @order.valid?
@@ -67,6 +69,35 @@ RSpec.describe BuyAddress, type: :model do
         expect(@order.errors.full_messages).to include('Phone is invalid')
       end
 
+      it '電話番号は、9桁以内では購入できない' do
+        @order.phone = '123456789'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Phone is invalid')
+      end
+
+      it '電話番号は、12桁以上では購入できない' do
+        @order.phone = '123456789101112'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Phone is invalid')
+      end
+
+      it '電話番号は、半角数字以外が含まれている場合は購入できない' do
+        @order.phone = '01234567８９'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Phone is invalid')
+      end
+
+      it 'userが紐付いていなければ出品できない"' do
+        @order.user_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'itemが紐付いていなければ出品できない"' do
+        @order.item_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item can't be blank")
+      end
     end
   end
 end
