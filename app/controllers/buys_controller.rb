@@ -1,5 +1,5 @@
 class BuysController < ApplicationController
-  before_action :authenticate_user!, only: [:index,:create]
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :having_items, only: [:index, :create]
   before_action :specified_user, only: [:index, :create]
 
@@ -39,10 +39,10 @@ class BuysController < ApplicationController
   end
 
   def specified_user
-      if  Buy.find_by(item_id: @items.id) != nil
-        redirect_to root_path
-      elsif @items.user.id == current_user.id
-        redirect_to root_path
-      end
+    if Buy.find_by(item_id: @items.id) != nil
+      redirect_to root_path
+    elsif @items.user.id == current_user.id
+      redirect_to root_path
+    end
   end
 end
