@@ -21,6 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @items = Item.find(params[:id])
   end
 
   def edit
@@ -51,6 +52,10 @@ class ItemsController < ApplicationController
   end
 
   def specified_user
-    redirect_to root_path unless @items.user.id == current_user.id
+    if Buy.find_by(item_id: @items.id) != nil
+      redirect_to root_path
+    elsif @items.user.id != current_user.id
+      redirect_to root_path
+    end
   end
 end

@@ -53,7 +53,9 @@
 * has_one :order
 
 
+
 # orders table
+
 
 | Column         | Type        | Options           |
 |----------------|-------------|-------------------|
