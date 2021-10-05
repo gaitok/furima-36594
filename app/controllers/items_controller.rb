@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   before_action :specified_user, only: [:edit]
 
   def index
-    @items = Item.order('created_at')
+    @items = Item.order(created_at: :desc)
   end
 
   def new
